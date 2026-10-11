@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "build/client"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# All public routes are statically prerendered — no SPA rewrite is needed.
+# Real 404s are handled by the prerendered 404.html generated at build time,
+# so unknown paths never fall through to a client-side shell.

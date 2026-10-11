@@ -8,6 +8,11 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
+import { business } from "~/config/business";
+import { Header } from "~/components/layout/Header";
+import { Footer } from "~/components/layout/Footer";
+import { FloatingWhatsApp } from "~/components/layout/FloatingWhatsApp";
+import { Button } from "~/components/ui/Button";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -19,8 +24,32 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap",
   },
+  { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+];
+
+/**
+ * Structured data uses only verified business details. Local address,
+ * phone and geo are added automatically once configured in business.ts.
+ */
+function organizationSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: business.name,
+    slogan: business.tagline,
+    description: business.description,
+    ...(business.websiteUrl ? { url: business.websiteUrl } : {}),
+  };
+}
+
+export const meta: Route.MetaFunction = () => [
+  {
+    title: `${business.name} | ${business.tagline}`,
+  },
+  { name: "description", content: business.description },
+  { "script:ld+json": organizationSchema() },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -32,8 +61,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className="flex min-h-screen flex-col">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:font-semibold focus:text-navy"
+        >
+          Skip to main content
+        </a>
+        <Header />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
+        <Footer />
+        <FloatingWhatsApp />
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -62,14 +102,21 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
+    <section className="gradient-bg">
+      <div className="container-page section-y text-center">
+        <h1 className="text-5xl font-bold text-white">{message}</h1>
+        <p className="mt-4 text-slate-300">{details}</p>
+        <div className="mt-8">
+          <Button to="/" variant="inverse">
+            Back to Home
+          </Button>
+        </div>
+        {stack && (
+          <pre className="mt-8 w-full overflow-x-auto rounded-xl bg-black/40 p-4 text-left text-xs text-slate-300">
+            <code>{stack}</code>
+          </pre>
+        )}
+      </div>
+    </section>
   );
 }

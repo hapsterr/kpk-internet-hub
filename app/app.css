@@ -1,15 +1,144 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-ink: #050b18;
+  --color-navy: #0b1f3a;
+  --color-brand: #0866e9;
+  --color-brand-dark: #054bb5;
+  --color-accent: #12d9f5;
+  --color-surface: #f8fafc;
+  --color-muted: #94a3b8;
+  --color-heading: #0f172a;
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  --shadow-soft: 0 10px 30px -12px rgb(11 31 58 / 0.25);
 }
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
-
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
+@layer base {
+  html {
+    scroll-behavior: smooth;
   }
+
+  body {
+    @apply bg-white font-sans text-slate-600 antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-heading;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility container-page {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+
+@utility section-y {
+  @apply py-16 sm:py-20 lg:py-24;
+}
+
+@utility btn-base {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-colors duration-200;
+}
+
+@utility btn-primary {
+  @apply btn-base bg-brand text-white hover:bg-brand-dark;
+}
+
+@utility btn-secondary {
+  @apply btn-base border border-white/25 bg-white/5 text-white hover:bg-white/10;
+}
+
+@utility btn-outline {
+  @apply btn-base border border-brand/30 bg-transparent text-brand hover:border-brand hover:bg-brand/5;
+}
+
+@utility card-base {
+  @apply rounded-2xl border border-slate-200/80 bg-white shadow-soft transition-shadow duration-200 hover:shadow-lg;
+}
+
+@utility gradient-brand {
+  @apply bg-gradient-to-r from-brand via-brand to-accent bg-clip-text text-transparent;
+}
+
+@utility gradient-bg {
+  @apply bg-[linear-gradient(135deg,#050B18_0%,#0B1F3A_55%,#082E63_100%)];
+}
+
+/* Decorative grid lives on a backdrop pseudo-element so the fade mask
+   only affects the grid lines — never the text above it. */
+@utility hero-grid {
+  position: relative;
+  isolation: isolate;
+}
+
+.hero-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgb(148 163 184 / 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(148 163 184 / 0.08) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+}
+
+/* Scroll-reveal: hidden only where JS runs and motion is allowed.
+   Without scripting support (or with reduced motion) content simply shows. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+.reveal {
+  transition-property: opacity, transform;
+  transition-duration: 0.7s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Gentle idle float for the hero panel. */
+@keyframes gentle-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.gentle-float {
+  animation: gentle-float 7s ease-in-out infinite;
 }

@@ -5,3 +5,14 @@
 # React Router
 /.react-router/
 /build/
+
+# Tests
+/test-results/
+/playwright-report/
+/coverage/
+
+# Local tooling
+/.sf/
+/.netlify/
+.dev-server.log
+
