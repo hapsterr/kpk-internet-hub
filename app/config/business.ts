@@ -21,7 +21,7 @@ export const business: BusinessConfig = {
   province: undefined,
   openingHours: undefined,
   googleMapsUrl: undefined,
-  websiteUrl: undefined,
+  websiteUrl: "https://kpkinternethub.co.za",
   socials: undefined,
 };
 
