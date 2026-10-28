@@ -62,13 +62,6 @@ function ContactLinks() {
           {location}
         </li>
       )}
-      {!whatsappUrl && !hasPhone && !hasEmail && !location && (
-        <li>
-          <Link to="/contact" className="transition-colors hover:text-white">
-            Contact details will be published here once confirmed.
-          </Link>
-        </li>
-      )}
     </ul>
   );
 }

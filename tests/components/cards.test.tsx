@@ -64,13 +64,15 @@ describe("ProductCard", () => {
 });
 
 describe("WhatsAppButton", () => {
-  it("renders nothing while the WhatsApp number is unconfigured", () => {
-    if (hasWhatsApp) {
-      return; // once configured, the button is expected to render (e2e covers it)
-    }
+  it("renders a wa.me link with the configured number", () => {
     const { container } = renderWithRouter(
       <WhatsAppButton message="Test message">Chat</WhatsAppButton>,
     );
-    expect(container).toBeEmptyDOMElement();
+    const link = container.querySelector("a");
+    expect(link).not.toBeNull();
+    expect(link?.getAttribute("href")).toContain("wa.me/27670749646");
+    expect(decodeURIComponent(link?.getAttribute("href") ?? "")).toContain(
+      "Test message",
+    );
   });
 });

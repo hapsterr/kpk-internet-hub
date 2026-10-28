@@ -27,9 +27,6 @@ export default function Contact() {
   const whatsappUrl = hasWhatsApp
     ? buildWhatsAppUrl("Hi KPK Internet Hub, I'd like to enquire about your services.")
     : null;
-  const hasAnyChannel = Boolean(
-    whatsappUrl || hasPhone || hasEmail || location || hasOpeningHours,
-  );
 
   return (
     <>
@@ -41,8 +38,7 @@ export default function Contact() {
       />
 
       <section className="container-page section-y">
-        {hasAnyChannel ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {whatsappUrl && (
               <div className="card-base p-6">
                 <span className="mb-4 grid size-11 place-items-center rounded-xl bg-[#25D366]/10 text-[#128C7E]">
@@ -162,18 +158,7 @@ export default function Contact() {
                 </ul>
               </div>
             )}
-          </div>
-        ) : (
-          <div className="card-base mx-auto max-w-2xl p-8 text-center">
-            <h2 className="text-lg font-semibold">Contact details coming soon</h2>
-            <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              Our WhatsApp line, phone number, email address and shop address
-              are being finalised with the business owner. They will be
-              published here as soon as they are confirmed — we never list
-              placeholder contact details.
-            </p>
-          </div>
-        )}
+        </div>
       </section>
     </>
   );

@@ -17,9 +17,6 @@ export function VisitSection() {
   const whatsappUrl = hasWhatsApp
     ? buildWhatsAppUrl("Hi KPK Internet Hub, I'd like to visit the shop. Are you open right now?")
     : null;
-  const hasAnyDetail = Boolean(
-    location || whatsappUrl || hasPhone || hasEmail || hasOpeningHours,
-  );
 
   return (
     <section className="container-page section-y">
@@ -30,7 +27,6 @@ export function VisitSection() {
         description="Stop by the shop for printing, applications, computer support and more."
       />
       <Reveal delay={150}>
-        {hasAnyDetail ? (
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {location && (
             <div className="card-base p-6">
@@ -108,21 +104,6 @@ export function VisitSection() {
             </div>
           )}
         </div>
-      ) : (
-        <div className="card-base mx-auto mt-10 max-w-2xl p-8 text-center">
-          <p className="text-sm leading-relaxed text-slate-600">
-            Our shop address, operating hours and direct contact lines are being
-            finalised and will be published here as soon as they are confirmed.
-            In the meantime, you are welcome to send an enquiry from the contact
-            page.
-          </p>
-          <div className="mt-6">
-            <Button to="/contact" variant="outline">
-              Contact Page
-            </Button>
-          </div>
-        </div>
-      )}
       </Reveal>
     </section>
   );

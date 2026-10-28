@@ -110,14 +110,11 @@ test.describe("content integrity", () => {
 });
 
 test.describe("contact flow", () => {
-  test("contact page shows honest state while details are unconfigured", async ({ page: browserPage }) => {
+  test("contact page shows the confirmed channels", async ({ page: browserPage }) => {
     await browserPage.goto("/contact");
-    const body = (await browserPage.locator("body").innerText()).toLowerCase();
-    const unconfigured = !body.includes("whatsapp");
-    if (unconfigured) {
-      await expect(
-        browserPage.getByRole("heading", { name: /contact details coming soon/i }),
-      ).toBeVisible();
-    }
+    await expect(browserPage.getByRole("link", { name: /chat on whatsapp/i })).toBeVisible();
+    await expect(browserPage.getByRole("link", { name: /call us/i })).toBeVisible();
+    await expect(browserPage.getByRole("link", { name: /send an email/i })).toBeVisible();
+    await expect(browserPage.getByText("info@kpkinternethub.co.za")).toBeVisible();
   });
 });

@@ -35,27 +35,21 @@ describe("business config", () => {
     expect(business.tagline).toBe("One Hub. Endless Possibilities.");
   });
 
-  it("does not fabricate contact details", () => {
-    if (!business.whatsappNumber) {
-      expect(business.whatsappNumber).toBeUndefined();
-    }
-    if (!business.email) {
-      expect(business.email).toBeUndefined();
-    }
+  it("stores the confirmed contact details", () => {
+    expect(business.whatsappNumber).toBe("0670749646");
+    expect(business.phone).toBe("0670749646");
+    expect(business.email).toBe("info@kpkinternethub.co.za");
   });
 
-  it("formatLocation returns null when no location is configured", () => {
-    if (!business.address && !business.city && !business.province) {
-      expect(formatLocation()).toBeNull();
-    }
+  it("stores the confirmed address and opening hours", () => {
+    expect(business.address).toBe("29769 Letoba Street, Ext 10, Mamelodi East");
+    expect(business.city).toBe("Pretoria");
+    expect(business.openingHours).toEqual(["09:00–19:00"]);
   });
 
   it("formatLocation joins configured parts", () => {
-    const parts = [business.address, business.city, business.province].filter(
-      Boolean,
+    expect(formatLocation()).toBe(
+      "29769 Letoba Street, Ext 10, Mamelodi East, Pretoria",
     );
-    if (parts.length > 0) {
-      expect(formatLocation()).toBe(parts.join(", "));
-    }
   });
 });

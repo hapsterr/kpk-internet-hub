@@ -36,14 +36,13 @@ describe("Header", () => {
     ).not.toBeVisible();
   });
 
-  it("hides the contact CTA while no contact number is configured", () => {
-    if (hasWhatsApp) {
-      return; // configured — CTA is expected to show (covered by e2e on staging)
+  it("shows the WhatsApp contact CTA", () => {
+    if (!hasWhatsApp) {
+      return; // unconfigured — CTA is expected to hide (covered by e2e)
     }
     renderWithRouter(<Header />);
-    expect(
-      screen.queryByRole("link", { name: /chat on whatsapp|call us/i }),
-    ).not.toBeInTheDocument();
+    const cta = screen.getByRole("link", { name: /chat on whatsapp/i });
+    expect(cta.getAttribute("href")).toContain("wa.me");
   });
 });
 
@@ -54,9 +53,21 @@ describe("Footer", () => {
     expect(screen.getByRole("link", { name: "Privacy Policy" })).toBeInTheDocument();
   });
 
-  it("never prints an unconfigured contact detail", () => {
+  it("shows the confirmed phone number and email address", () => {
     renderWithRouter(<Footer />);
-    expect(screen.queryByText(/\+27|0[0-9]{2}[\s-]?[0-9]{3}/)).not.toBeInTheDocument();
-    expect(screen.queryByText(/@gmail\.com|@kpk/i)).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /0670749646/i }),
+    ).toHaveAttribute("href", "tel:0670749646");
+    expect(
+      screen.getByRole("link", { name: /info@kpkinternethub\.co\.za/i }),
+    ).toHaveAttribute("href", "mailto:info@kpkinternethub.co.za");
+  });
+
+  it("never prints placeholder or foreign contact details", () => {
+    renderWithRouter(<Footer />);
+    expect(screen.queryByText(/@gmail\.com/i)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/contact details will be published here/i),
+    ).not.toBeInTheDocument();
   });
 });

@@ -23,10 +23,15 @@ describe("normaliseWhatsAppNumber", () => {
 });
 
 describe("buildWhatsAppUrl", () => {
-  it("returns null when no number is configured", () => {
-    expect(buildWhatsAppUrl("hello", undefined)).toBeNull();
+  it("returns null when an empty number is passed", () => {
     expect(buildWhatsAppUrl("hello", "")).toBeNull();
     expect(buildWhatsAppUrl("hello", "   ")).toBeNull();
+  });
+
+  it("uses the configured business number by default", () => {
+    expect(buildWhatsAppUrl("hello")).toBe(
+      "https://wa.me/27670749646?text=hello",
+    );
   });
 
   it("builds a wa.me link without a message", () => {

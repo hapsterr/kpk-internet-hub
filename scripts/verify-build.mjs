@@ -3,7 +3,7 @@
  * - every public route has prerendered HTML
  * - a Netlify 404.html exists
  * - prerendered pages contain real content and metadata
- * - no unconfigured WhatsApp links leak into published HTML
+ * - any WhatsApp links use the configured business number
  */
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
@@ -60,8 +60,8 @@ for (const route of routes) {
   if (!html.includes(route.marker)) {
     fail(`${route.path}: expected content marker "${route.marker}" not found`);
   }
-  if (html.includes("wa.me/")) {
-    fail(`${route.path}: contains wa.me link while whatsappNumber is unconfigured`);
+  if (/wa\.me\/(?!27670749646)/.test(html)) {
+    fail(`${route.path}: contains a wa.me link for an unconfigured number`);
   }
 
   console.log(`OK: ${route.path}`);

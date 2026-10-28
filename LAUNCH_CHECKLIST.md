@@ -6,13 +6,13 @@ Items that must be confirmed by the business owner or supplied before the websit
 
 Configure in `app/config/business.ts`:
 
-- [ ] WhatsApp number (enables all WhatsApp CTAs, floating button, header CTA)
-- [ ] Telephone number
-- [ ] Business email address
-- [ ] Shop street address
-- [ ] Suburb / city
+- [x] WhatsApp number (enables all WhatsApp CTAs, floating button, header CTA) — 0670749646
+- [x] Telephone number — 0670749646
+- [x] Business email address — info@kpkinternethub.co.za
+- [x] Shop street address — 29769 Letoba Street, Ext 10, Mamelodi East
+- [x] Suburb / city — Pretoria
 - [ ] Province
-- [ ] Operating hours (e.g. `["Mon–Fri: 08:00–18:00", "Sat: 08:00–14:00"]`)
+- [x] Operating hours — 09:00–19:00
 - [ ] Google Maps directions URL (once the address is confirmed)
 - [ ] Production domain → set as `websiteUrl` (enables canonical URLs, Open Graph URLs, sitemap.xml and removes the site-wide `noindex`)
 - [ ] Facebook / Instagram page URLs (optional)
@@ -45,7 +45,7 @@ Configure in `app/config/business.ts`:
 - [ ] Set `websiteUrl` in `business.ts`, redeploy, and verify `sitemap.xml` + canonical tags on production.
 - [ ] Submit the sitemap to Google Search Console.
 - [ ] Test all WhatsApp CTAs on a real phone once the number is live.
-- [ ] Update the guarded component tests in `tests/components/` that assume contact details are unconfigured.
+- [x] Update the guarded component tests in `tests/components/` that assume contact details are unconfigured.
 
 ## 6. Post-launch
 
