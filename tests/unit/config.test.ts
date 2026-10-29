@@ -44,7 +44,15 @@ describe("business config", () => {
   it("stores the confirmed address and opening hours", () => {
     expect(business.address).toBe("29769 Letoba Street, Ext 10, Mamelodi East");
     expect(business.city).toBe("Pretoria");
-    expect(business.openingHours).toEqual(["09:00–19:00"]);
+    expect(business.openingHours).toEqual([
+      "Monday 09:00–18:00",
+      "Tuesday 09:00–19:00",
+      "Wednesday 09:00–19:00",
+      "Thursday 09:00–19:00",
+      "Friday 09:00–19:00",
+      "Saturday 09:00–20:00",
+      "Sunday 09:00–18:00",
+    ]);
   });
 
   it("formatLocation joins configured parts", () => {

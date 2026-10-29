@@ -1,5 +1,4 @@
 import {
-  ArrowRight,
   Compass,
   DraftingCompass,
   FolderKanban,
@@ -14,7 +13,6 @@ import { FaqAccordion } from "~/components/ui/FaqAccordion";
 import { CtaBanner } from "~/components/ui/CtaBanner";
 import { Button } from "~/components/ui/Button";
 import { WhatsAppButton } from "~/components/ui/WhatsAppButton";
-import { portfolioProjects } from "~/data/portfolio";
 import { websiteFaqs } from "~/data/faqs";
 import { hasWhatsApp } from "~/config/business";
 import { seoMeta } from "~/utils/seo";
@@ -138,44 +136,6 @@ export default function WebsiteDevelopment() {
             ))}
           </ol>
         </div>
-      </section>
-
-      <section className="container-page section-y">
-        <SectionHeading
-          align="center"
-          title="Portfolio Showcase"
-          description="A selection of delivered projects will appear here as they are completed and approved."
-        />
-        {portfolioProjects.length > 0 ? (
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {portfolioProjects.map((project) => (
-              <article key={project.slug} className="card-base p-6">
-                <p className="text-xs font-semibold uppercase tracking-wider text-brand">
-                  {project.type}
-                </p>
-                <h3 className="mt-2 text-lg font-semibold">{project.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  {project.description}
-                </p>
-              </article>
-            ))}
-          </div>
-        ) : (
-          <div className="card-base mx-auto mt-10 max-w-2xl p-8 text-center">
-            <p className="text-sm leading-relaxed text-slate-600">
-              Our portfolio is growing. Completed projects will be showcased
-              here once approved. In the meantime, contact us to discuss what we
-              can build for you — this very website was designed and developed
-              in-house.
-            </p>
-            <div className="mt-6">
-              <Button to="/contact" variant="outline">
-                Get in Touch
-                <ArrowRight aria-hidden="true" className="size-4" />
-              </Button>
-            </div>
-          </div>
-        )}
       </section>
 
       <section className="bg-surface">

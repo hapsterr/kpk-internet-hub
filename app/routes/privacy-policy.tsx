@@ -1,5 +1,4 @@
 import type { Route } from "./+types/privacy-policy";
-import { AlertTriangle } from "lucide-react";
 import { PageHeader } from "~/components/ui/PageHeader";
 import { business } from "~/config/business";
 import { seoMeta } from "~/utils/seo";
@@ -63,22 +62,6 @@ export default function PrivacyPolicy() {
 
       <section className="container-page section-y">
         <div className="mx-auto max-w-3xl">
-          <div
-            role="note"
-            className="mb-10 flex items-start gap-4 rounded-2xl border border-amber-300/70 bg-amber-50 p-6"
-          >
-            <AlertTriangle
-              aria-hidden="true"
-              className="mt-0.5 size-5 shrink-0 text-amber-600"
-            />
-            <p className="text-sm leading-relaxed text-amber-900">
-              <strong className="font-semibold">Note for owner review:</strong>{" "}
-              before launch, confirm the business contact channel named for
-              privacy requests, and review this policy with reference to the
-              business&apos;s actual data-handling practices.
-            </p>
-          </div>
-
           <div className="space-y-10">
             {sections.map((section) => (
               <article key={section.heading}>
